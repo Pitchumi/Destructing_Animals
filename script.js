@@ -1,7 +1,10 @@
 // CANVAS INIT
+// Const in Maj ;)
+const CANVAS = document.getElementById("game");
+const CTX = CANVAS.getContext("2d"); // Context, to use to draw in
+const X_CENTER = CANVAS.width / 2
+const Y_CENTER = CANVAS.height / 2
 
-const canvas = document.getElementById("game");
-const ctx = canvas.getContext("2d"); // Context, to use to draw in
 
 // INPUT MANAGER
 
@@ -18,7 +21,10 @@ function mouseListener(event) // What to do then
         function main() // Gameloop
         {
             // PROCESS (fun todo) - Do the maths here
-            ctx.clearRect(0,0, canvas.width, canvas.height); // This clean the canvas at each frame
+            CTX.clearRect(0,0, CANVAS.width, CANVAS.height); // This clean the canvas at each frame
+            CTX.moveTo(0,0)
+            CTX.lineTo(X_CENTER,Y_CENTER)
+            CTX.stroke()
             // DRAW (fun todo) - Draw everything here
             requestAnimationFrame(main); // This repeats main() as an infinite loop
         }
