@@ -16,23 +16,20 @@ function mouseListener(event) // What to do then
 }
 
 class Sprite {
-    constructor(position) {
-        this.position = position
+    constructor(setup) {
+        this.setup = setup
     }
 
     draw(){
         CTX.fillStyle = 'red'
-        CTX.fillRect(this.position.x, this.position.y, 50, 50)
+        CTX.fillRect(this.setup.x, this.setup.y, this.setup.height, this.setup.width)
         return CTX
     }
 
 
 }
 
-const rectangle = new Sprite({
-    x : 20,
-    y : 20
-})
+const rectangle = new Sprite({x : 20,y : 20,width : 50,height : 50})
 
 
 rectangle.draw();
