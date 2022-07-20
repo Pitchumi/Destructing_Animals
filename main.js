@@ -26,6 +26,9 @@ function mouseListener(event) // What to do then
 }
 
 function move(event){
+    if (event.key == "ArrowUp"){
+        //faire des trucs
+    }
     console.log(event.key)
 }
 
