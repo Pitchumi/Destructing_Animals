@@ -34,6 +34,7 @@ const rectangle = new Sprite({
     y : 20
 })
 
+
 rectangle.draw();
 
 // MAIN
