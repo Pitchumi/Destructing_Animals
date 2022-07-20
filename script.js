@@ -17,19 +17,28 @@ function mouseListener(event) // What to do then
 }
 
 class Moving_object {
-    constructor(pos_x, pos_y, color) {
+    constructor(pos_x, pos_y, width, height,color) {
         this.pos_x = pos_x
         this.pos_y = pos_y
         this.color = color
+        this.height = height
+        this.width = width
     }
 
     get_current_position(){
         console.log("posx:" + this.pos_x + "posy" + this.pos_y)
     }
 
+    draw(){
+        CTX.fillStyle = this.color
+        CTX.fillRect(this.pos_x, this.pos_y, this.height, this.width)
+    }
+
+
 }
 
-rectangle = new Moving_object(20,20,"red")
+let rectangle = new Moving_object(20,20,20,20,"red")
+rectangle.draw()
 // MAIN
 
         function main() // Gameloop
