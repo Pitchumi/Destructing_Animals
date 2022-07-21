@@ -6,13 +6,8 @@ const CTX = CANVAS.getContext("2d"); // Context, to use to draw in
 //CONST
 const X_CENTER = CANVAS.width / 2
 const Y_CENTER = CANVAS.height / 2
-const LEFT_ARROW_KEY = 37
-const RIGHT_ARROW_KEY = 38
-const UP_ARROW_KEY = 39
-const DOWN_ARROW_KEY = 40
 
 //CLASSES
-
 
 /**
  * Represents a sprite.
@@ -69,7 +64,7 @@ rectangle.draw();
 //document.addEventListener("mousemove", mouseListener, false); // Called when the mouse is moving
 document.addEventListener("keydown", move, false)
 
-//Functions for input
+//INPUT FUNCTIONS
 
 function mouseListener(event) // What to do then 
 {
@@ -78,7 +73,24 @@ function mouseListener(event) // What to do then
 
 function move(event){
     if (event.key == "ArrowUp"){
-        //faire des trucs
+        CTX.clearRect(0,0, CANVAS.width, CANVAS.height);
+        rectangle.current_y_position -= 10
+        rectangle.draw()
+    }
+    if (event.key == "ArrowDown"){
+        CTX.clearRect(0,0, CANVAS.width, CANVAS.height)
+        rectangle.current_y_position += 10
+        rectangle.draw()
+    }
+    if (event.key == "ArrowLeft"){
+        CTX.clearRect(0,0, CANVAS.width, CANVAS.height)
+        rectangle.current_x_position -= 10
+        rectangle.draw()
+    }
+    if (event.key == "ArrowRight"){
+        CTX.clearRect(0,0, CANVAS.width, CANVAS.height)
+        rectangle.current_x_position += 10
+        rectangle.draw()
     }
     console.log(event.key)
 }
@@ -89,7 +101,7 @@ function move(event){
         {
             // PROCESS (fun todo) - Do the maths here
             CTX.clearRect(0,0, CANVAS.width, CANVAS.height); // This clean the canvas at each frame
-            
+
             // DRAW (fun todo) - Draw everything here
             requestAnimationFrame(main); // This repeats main() as an infinite loop
         }
