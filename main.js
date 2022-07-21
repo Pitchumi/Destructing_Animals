@@ -11,6 +11,57 @@ const RIGHT_ARROW_KEY = 38
 const UP_ARROW_KEY = 39
 const DOWN_ARROW_KEY = 40
 
+//CLASSES
+
+
+/**
+ * Represents a sprite.
+ * @constructor
+ * @param {Number} x_pos - The xPosition of the sprite.
+ * @param {Number} y_pos - The yPosition of the sprite.
+ * @param {Number} height - The height of the sprite.
+ * @param {Number} width - The width of the sprite.
+ */
+ class Sprite {
+    constructor(x_pos, y_pos, height, width) {
+        this.x_pos = x_pos
+        this.y_pos = y_pos
+        this.height = height
+        this.width = width     
+    }
+    
+    get current_x_position(){
+        return this.x_pos
+    }
+
+    get current_y_position(){
+        return this.y_pos
+    }
+
+    set current_x_position(new_x_pos){
+        this.x_pos = new_x_pos 
+    }
+
+    set current_y_position(new_y_pos){
+        this.y_pos = new_y_pos 
+    }
+
+    draw(){
+        CTX.fillStyle = 'red'
+        CTX.fillRect(this.x_pos, this.y_pos, this.height, this.width)
+        return CTX
+    }
+
+    move(){
+    }
+}
+
+//OBJECTS INIT
+
+const rectangle = new Sprite(20, 20, 50, 50)
+rectangle.draw();
+
+
 
 // INPUT MANAGER
 
@@ -31,40 +82,6 @@ function move(event){
     }
     console.log(event.key)
 }
-
-
-/**
- * Represents a sprite.
- * @constructor
- * @param {Number} x_pos - The xPosition of the sprite.
- * @param {Number} y_pos - The yPosition of the sprite.
- * @param {Number} height - The height of the sprite.
- * @param {Number} width - The width of the sprite.
- */
-class Sprite {
-    constructor(x_pos, y_pos, height, width) {
-        this.x_pos = x_pos
-        this.y_pos = y_pos
-        this.height = height
-        this.width = width     
-    }
-
-    draw(){
-        CTX.fillStyle = 'red'
-        CTX.fillRect(this.x_pos, this.y_pos, this.height, this.width)
-        return CTX
-    }
-
-    move(){
-    }
-}
-
-
-
-const rectangle = new Sprite(20, 20, 50, 50)
-rectangle.draw();
-
-
 
 // MAIN
 
