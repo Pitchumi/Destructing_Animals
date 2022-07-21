@@ -1,3 +1,16 @@
+//w__________________________________________x
+//|                                          |
+//|                                          |
+//|                                          |
+//|                                          |                                     
+//y__________________________________________z
+// w is (0,0)
+// x is (450,0)
+// y is (O,150)
+// z is (450,150)
+
+
+
 // CANVAS INIT
 
 const CANVAS = document.getElementById("game");
@@ -47,15 +60,20 @@ const Y_CENTER = CANVAS.height / 2
         return CTX
     }
 
-    move(){
-    }
 }
+
 
 //OBJECTS INIT
 
 const rectangle = new Sprite(20, 20, 50, 50)
 rectangle.draw();
 
+//FUNCTIONS FOR OTHER THAN INPUTS
+
+function collision_detector(){
+    can_i_move = false
+    
+}
 
 
 // INPUT MANAGER
