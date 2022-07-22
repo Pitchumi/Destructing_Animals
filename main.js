@@ -70,9 +70,22 @@ rectangle.draw();
 
 //FUNCTIONS FOR OTHER THAN INPUTS
 
-function collision_detector(){
-    can_i_move = false
-    
+/**
+ * Will test the boundaries of playground, we don't want that obj exits the playground
+ * @param {Sprite} obj 
+ * @returns {Boolean} is_colliding, false if playground boudaries not yet crossed, true elif
+ */
+function collision_detector_with_playground_borders(obj){
+    is_colliding = false
+    hit_top_left = obj.current_x_position < 0 || obj.current_y_position < 0
+    hit_top_right = obj.current_x_position > 450 || obj.current_y_position < 0
+    hit_bottom_left = obj.current_x_position < 0 || obj.current_y_position > 150
+    hit_bottom_right = obj.current_x_position > 450 || obj.current_y_position > 150
+    if (hit_top_left || hit_top_right || hit_bottom_left || hit_bottom_right){
+        is_colliding = true
+        return is_colliding 
+    }      
+    return is_colliding       
 }
 
 
@@ -90,24 +103,39 @@ function mouseListener(event) // What to do then
 }
 
 function move(event){
-    if (event.key == "ArrowUp"){
+    if (collision_detector_with_playground_borders(rectangle) == false){
+        if (event.key == "ArrowUp"){
+                CTX.clearRect(0,0, CANVAS.width, CANVAS.height);
+                rectangle.current_y_position -= 10
+                rectangle.draw()
+        }
+
+        if (event.key == "ArrowDown"){
+                CTX.clearRect(0,0, CANVAS.width, CANVAS.height)
+                rectangle.current_y_position += 10
+                rectangle.draw()
+        }
+
+    } else {
         CTX.clearRect(0,0, CANVAS.width, CANVAS.height);
-        rectangle.current_y_position -= 10
+        console.log(rectangle.current_y_position)
         rectangle.draw()
     }
-    if (event.key == "ArrowDown"){
-        CTX.clearRect(0,0, CANVAS.width, CANVAS.height)
-        rectangle.current_y_position += 10
-        rectangle.draw()
-    }
-    if (event.key == "ArrowLeft"){
-        CTX.clearRect(0,0, CANVAS.width, CANVAS.height)
-        rectangle.current_x_position -= 10
-        rectangle.draw()
-    }
-    if (event.key == "ArrowRight"){
-        CTX.clearRect(0,0, CANVAS.width, CANVAS.height)
-        rectangle.current_x_position += 10
+
+    if (collision_detector_with_playground_borders(rectangle) == false){
+        if (event.key == "ArrowLeft"){
+            CTX.clearRect(0,0, CANVAS.width, CANVAS.height)
+            rectangle.current_x_position -= 10
+            rectangle.draw()
+        }
+        if (event.key == "ArrowRight"){
+            CTX.clearRect(0,0, CANVAS.width, CANVAS.height)
+            rectangle.current_x_position += 10
+            rectangle.draw()
+        }
+    } else {
+        CTX.clearRect(0,0, CANVAS.width, CANVAS.height);
+        console.log(rectangle.current_x_position)
         rectangle.draw()
     }
     console.log(event.key)
