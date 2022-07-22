@@ -105,9 +105,15 @@ function mouseListener(event) // What to do then
 function move(event){
     if (collision_detector_with_playground_borders(rectangle) == false){
         if (event.key == "ArrowUp"){
+            if (collision_detector_with_playground_borders(rectangle) == false){
                 CTX.clearRect(0,0, CANVAS.width, CANVAS.height);
                 rectangle.current_y_position -= 10
                 rectangle.draw()
+            } else {
+                CTX.clearRect(0,0, CANVAS.width, CANVAS.height);
+                rectangle.current_y_position = 10
+                rectangle.draw()
+            }
         }
 
         if (event.key == "ArrowDown"){
@@ -118,7 +124,8 @@ function move(event){
 
     } else {
         CTX.clearRect(0,0, CANVAS.width, CANVAS.height);
-        console.log(rectangle.current_y_position)
+        rectangle.current_y_position = 0
+        rectangle.current_x_position = rectangle.current_x_position
         rectangle.draw()
     }
 
@@ -135,7 +142,8 @@ function move(event){
         }
     } else {
         CTX.clearRect(0,0, CANVAS.width, CANVAS.height);
-        console.log(rectangle.current_x_position)
+        rectangle.current_x_position = 0
+        rectangle.current_y_position = rectangle.current_y_position
         rectangle.draw()
     }
     console.log(event.key)
