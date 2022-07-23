@@ -58,7 +58,7 @@ const Y_CENTER = CANVAS.height / 2
 
     draw(){
         CTX.fillStyle = this.color
-        CTX.fillRect(this.x_pos, this.y_pos, this.height, this.width)
+        CTX.strokeRect(this.x_pos, this.y_pos, this.height, this.width)
         return CTX
     }
 
@@ -96,16 +96,6 @@ function collision_detector_with_playground_borders(obj, dir){
             is_colliding = true
             return is_colliding
         }
-        case "down":
-            if (hit_bottom){
-                is_colliding = true
-                return is_colliding
-            }
-        case "left":
-            if (hit_left){
-                is_colliding = true
-                return is_colliding
-            }
         case "right":
             if (hit_right){
                 is_colliding = true
@@ -142,38 +132,6 @@ function move(event){
             CTX.clearRect(0,0, CANVAS.width, CANVAS.height);
             rectangle.current_y_position += 5
             rectangle.draw()            
-            platform.draw()
-        }
-    }
-
-    if (event.key == "ArrowDown"){        
-        if (collision_detector_with_playground_borders(rectangle, "down") == false){
-            CTX.clearRect(0,0, CANVAS.width, CANVAS.height)
-            rectangle.current_y_position += 10
-            rectangle.draw()            
-            platform.draw()
-
-        }
-        if (collision_detector_with_playground_borders(rectangle, "down")) {
-            CTX.clearRect(0,0, CANVAS.width, CANVAS.height);
-            rectangle.current_y_position -= 5
-            rectangle.draw()
-            platform.draw()
-        }
-    }
-
-    if (event.key == "ArrowLeft"){        
-        if (collision_detector_with_playground_borders(rectangle, "left") == false){
-        CTX.clearRect(0,0, CANVAS.width, CANVAS.height)
-        rectangle.current_x_position -= 10
-        rectangle.draw()
-        platform.draw()
-        }
-
-        if (collision_detector_with_playground_borders(rectangle, "left")){            
-            CTX.clearRect(0,0, CANVAS.width, CANVAS.height);
-            rectangle.current_x_position += 5
-            rectangle.draw()
             platform.draw()
         }
     }
