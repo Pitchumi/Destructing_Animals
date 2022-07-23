@@ -51,8 +51,38 @@ class Plateformer_Player
         this.countRed = countRed;
         this.countBlue = countBlue;
         this.countGreen = countGreen;
-        this.jumpHeight = PLAYER_JUMP_HEIGHT;
         this.isJumping = false;
+        this.jumpHeight = -PLAYER_JUMP_HEIGHT;
+        this.jumpGravity = 1;
+        this.jumpVec = 0;
+    }
+    checkCollision()
+    {
+        if ((this.y_pos + TILE_SIZE) >= WINDOWS_HEIGHT) // On collision with the ground
+        {
+            this.jumpVec = 0;
+            this.isJumping = false;
+            this.y_pos = WINDOWS_HEIGHT - TILE_SIZE;
+        }
+    }
+    jump()
+    {
+        if (!this.isJumping)
+        {
+            this.jumpVec = this.jumpHeight;
+            this.isJumping = true;
+        }
+    }
+    move()
+    {
+        this.jumpVec += this.jumpGravity;
+        this.y_pos += this.jumpVec;
+    }
+    process()
+    {
+        this.move();
+        this.checkCollision();
+        this.sprite.y_pos = this.y_pos;
     }
 }
 
@@ -159,7 +189,14 @@ function draw_everything(){
 
 //document.addEventListener("mousedown", mouseListener, false); // Called when user interact with the mouse (usually on mouse click)
 //document.addEventListener("mousemove", mouseListener, false); // Called when the mouse is moving
-document.addEventListener("keydown", move, false);
+// document.addEventListener("keydown", move, false);
+document.addEventListener("keydown", eventManager, false);
+function eventManager(event)
+{
+    if (event.key == "ArrowUp"){
+        player.jump();
+    }
+}
 
 //INPUT FUNCTIONS
 
@@ -189,9 +226,10 @@ function move(event){
         function main() // Gameloop
         {
             // PROCESS (fun todo) - Do the maths here
-            CTX.clearRect(0,0, CANVAS.width, CANVAS.height); // This clean the canvas at each frame
-
+            player.process();
+            
             // DRAW (fun todo) - Draw everything here
+            CTX.clearRect(0,0, CANVAS.width, CANVAS.height); // This clean the canvas at each frame
             draw_everything();
             player.sprite.draw();
             requestAnimationFrame(main); // This repeats main() as an infinite loop
