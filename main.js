@@ -28,6 +28,27 @@ var jumping = false;
 //CLASSES
 
 /**
+ * Player's character in Collect mode
+ * @constructor
+ * @param {Number} countRed - The ammount of red collected.
+ * @param {Number} countBlue - The ammount of blue collected.
+ * @param {Number} countGreen - The ammount of green collected.
+ */
+class Plateformer_Player
+{
+    constructor(countRed, countBlue, countGreen)
+    {
+        this.x_pos = (WINDOWS_WIDTH/2) - (TILE_SIZE/2); // WINDOW CENTER
+        this.y_pos = (WINDOWS_HEIGHT/2) - (TILE_SIZE/2); // WINDOW CENTER
+        this.countRed = countRed;
+        this.countBlue = countBlue;
+        this.countGreen = countGreen;
+        this.jumpHeight = PLAYER_JUMP_HEIGHT;
+        this.isJumping = false;
+    }
+}
+
+/**
  * Represents a sprite.
  * @constructor
  * @param {Number} x_pos - The xPosition of the sprite.
