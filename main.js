@@ -17,12 +17,12 @@ const CANVAS = document.getElementById("game");
 const CTX = CANVAS.getContext("2d"); // Context, to use to draw in
 
 //CONST
-const X_CENTER = CANVAS.width / 2
-const Y_CENTER = CANVAS.height / 2
- PLAYER_JUMP_HEIGHT = 20
+const X_CENTER = CANVAS.width / 2;
+const Y_CENTER = CANVAS.height / 2;
+const PLAYER_JUMP_HEIGHT = 20;
 
 //VAR
-var jumping = false
+var jumping = false;
 
 
 //CLASSES
@@ -38,33 +38,33 @@ var jumping = false
  */
  class Sprite {
     constructor(x_pos, y_pos, height, width, color) {
-        this.x_pos = x_pos
-        this.y_pos = y_pos
-        this.height = height
-        this.width = width    
-        this.color = color 
+        this.x_pos = x_pos;
+        this.y_pos = y_pos;
+        this.height = height;
+        this.width = width; 
+        this.color = color;
     }
     
     get current_x_position(){
-        return this.x_pos
+        return this.x_pos;
     }
 
     get current_y_position(){
-        return this.y_pos
+        return this.y_pos;
     }
 
     set current_x_position(new_x_pos){
-        this.x_pos = new_x_pos 
+        this.x_pos = new_x_pos;
     }
 
     set current_y_position(new_y_pos){
-        this.y_pos = new_y_pos 
+        this.y_pos = new_y_pos;
     }
 
     draw(){
-        CTX.fillStyle = this.color
-        CTX.strokeRect(this.x_pos, this.y_pos, this.height, this.width)
-        return CTX
+        CTX.fillStyle = this.color;
+        CTX.strokeRect(this.x_pos, this.y_pos, this.height, this.width);
+        return CTX;
     }
 
 }
@@ -72,10 +72,10 @@ var jumping = false
 
 //OBJECTS INIT
 
-const platform = new Sprite(0, 180, CANVAS.width, 20, "black")
-platform.draw()
+const platform = new Sprite(0, 180, CANVAS.width, 20, "black");
+platform.draw();
 
-var rectangle = new Sprite(20, platform.current_y_position - 40, 40, 40, "blue")
+var rectangle = new Sprite(20, platform.current_y_position - 40, 40, 40, "blue");
 rectangle.draw();
 
 
@@ -89,39 +89,39 @@ rectangle.draw();
  * @returns {Boolean} is_colliding, false if playground boudaries not yet crossed, true elif
  */
 function collision_detector_with_playground_borders(obj, dir){
-    is_colliding = false
-    hit_top = obj.current_y_position < 5
-    hit_bottom = obj.current_y_position > 145
-    hit_left = obj.current_x_position < 5
-    hit_right = obj.current_x_position > 445
+    is_colliding = false;
+    hit_top = obj.current_y_position < 5;
+    hit_bottom = obj.current_y_position > 145;
+    hit_left = obj.current_x_position < 5;
+    hit_right = obj.current_x_position > 445;
 
     switch(dir){
         case "up":        
         if (hit_top){
-            is_colliding = true
-            return is_colliding
+            is_colliding = true;
+            return is_colliding;
         }
         case "right":
             if (hit_right){
-                is_colliding = true
-                return is_colliding
+                is_colliding = true;
+                return is_colliding;
             }
     }      
-    return is_colliding       
+    return is_colliding; 
 }
 
 
 function land(){
     jumping = false
     CTX.clearRect(0,0, CANVAS.width, CANVAS.height);
-    rectangle.current_y_position += PLAYER_JUMP_HEIGHT
-    draw_everything()
+    rectangle.current_y_position += PLAYER_JUMP_HEIGHT;
+    draw_everything();
 }
 
 function jump(){
     if (!jumping) {
         jumping = true;
-        rectangle.current_y_position -= PLAYER_JUMP_HEIGHT
+        rectangle.current_y_position -= PLAYER_JUMP_HEIGHT;
         setTimeout(land, 250);
       }
 }
@@ -130,8 +130,8 @@ function jump(){
  * Will draw all the objects in one function, don't forget to put new object here
  */
 function draw_everything(){
-    rectangle.draw()
-    platform.draw()
+    rectangle.draw();
+    platform.draw();
 }
 
 
@@ -139,7 +139,7 @@ function draw_everything(){
 
 //document.addEventListener("mousedown", mouseListener, false); // Called when user interact with the mouse (usually on mouse click)
 //document.addEventListener("mousemove", mouseListener, false); // Called when the mouse is moving
-document.addEventListener("keydown", move, false)
+document.addEventListener("keydown", move, false);
 
 //INPUT FUNCTIONS
 
@@ -150,25 +150,25 @@ function mouseListener(event) // What to do then
 
 function move(event){
     if (event.key == "ArrowUp"){
-        jump()
+        jump();
         CTX.clearRect(0,0, CANVAS.width, CANVAS.height);
-        draw_everything()
+        draw_everything();
     }
 
     if (event.key == "ArrowRight"){
         if (collision_detector_with_playground_borders(rectangle, "right") == false){
-        CTX.clearRect(0,0, CANVAS.width, CANVAS.height)
-        rectangle.current_x_position += 10
-        draw_everything()
+        CTX.clearRect(0,0, CANVAS.width, CANVAS.height);
+        rectangle.current_x_position += 10;
+        draw_everything();
 
         }
         if (collision_detector_with_playground_borders(rectangle, "right")){                  
             CTX.clearRect(0,0, CANVAS.width, CANVAS.height);
-            rectangle.current_x_position -= 8
-            draw_everything()
+            rectangle.current_x_position -= 8;
+            draw_everything();
         }
     }
-    console.log(event.key)
+    console.log(event.key);
 }
 
 // MAIN
