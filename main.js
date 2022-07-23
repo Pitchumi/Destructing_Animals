@@ -40,6 +40,14 @@ class Plateformer_Player
     {
         this.x_pos = (WINDOWS_WIDTH/2) - (TILE_SIZE/2); // WINDOW CENTER
         this.y_pos = (WINDOWS_HEIGHT/2) - (TILE_SIZE/2); // WINDOW CENTER
+        this.sprite = new Sprite
+        (
+            this.x_pos,
+            this.y_pos,
+            TILE_SIZE,
+            TILE_SIZE,
+            "black"
+        );
         this.countRed = countRed;
         this.countBlue = countBlue;
         this.countGreen = countGreen;
@@ -94,6 +102,7 @@ class Plateformer_Player
 
 const platform = new Sprite(0, 180, CANVAS.width, 20, "black");
 var rectangle = new Sprite(20, platform.current_y_position - 40, TILE_SIZE, TILE_SIZE, "blue");
+var player = new Plateformer_Player(0,0,0);
 
 //FUNCTIONS FOR OTHER THAN INPUTS
 
@@ -184,6 +193,7 @@ function move(event){
 
             // DRAW (fun todo) - Draw everything here
             draw_everything();
+            player.sprite.draw();
             requestAnimationFrame(main); // This repeats main() as an infinite loop
         }
 
