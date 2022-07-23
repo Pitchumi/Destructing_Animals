@@ -90,14 +90,10 @@ class Plateformer_Player
 
 }
 
-
 //OBJECTS INIT
 
 const platform = new Sprite(0, 180, CANVAS.width, 20, "black");
-platform.draw();
-
 var rectangle = new Sprite(20, platform.current_y_position - 40, TILE_SIZE, TILE_SIZE, "blue");
-rectangle.draw();
 
 //FUNCTIONS FOR OTHER THAN INPUTS
 
@@ -129,12 +125,9 @@ function collision_detector_with_playground_borders(obj, dir){
     return is_colliding; 
 }
 
-
 function land(){
     jumping = false
-    CTX.clearRect(0,0, CANVAS.width, CANVAS.height);
     rectangle.current_y_position += PLAYER_JUMP_HEIGHT;
-    draw_everything();
 }
 
 function jump(){
@@ -169,21 +162,14 @@ function mouseListener(event) // What to do then
 function move(event){
     if (event.key == "ArrowUp"){
         jump();
-        CTX.clearRect(0,0, CANVAS.width, CANVAS.height);
-        draw_everything();
     }
 
     if (event.key == "ArrowRight"){
         if (collision_detector_with_playground_borders(rectangle, "right") == false){
-        CTX.clearRect(0,0, CANVAS.width, CANVAS.height);
-        rectangle.current_x_position += 10;
-        draw_everything();
-
+            rectangle.current_x_position += 10;
         }
         if (collision_detector_with_playground_borders(rectangle, "right")){                  
-            CTX.clearRect(0,0, CANVAS.width, CANVAS.height);
             rectangle.current_x_position -= 8;
-            draw_everything();
         }
     }
     console.log(event.key);
@@ -197,6 +183,8 @@ function move(event){
             CTX.clearRect(0,0, CANVAS.width, CANVAS.height); // This clean the canvas at each frame
 
             // DRAW (fun todo) - Draw everything here
+            draw_everything();
             requestAnimationFrame(main); // This repeats main() as an infinite loop
         }
 
+main();
