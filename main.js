@@ -75,7 +75,7 @@ var jumping = false;
 const platform = new Sprite(0, 180, CANVAS.width, 20, "black");
 platform.draw();
 
-var rectangle = new Sprite(20, platform.current_y_position - 40, 40, 40, "blue");
+var rectangle = new Sprite(20, platform.current_y_position - 40, TILE_SIZE, TILE_SIZE, "blue");
 rectangle.draw();
 
 //FUNCTIONS FOR OTHER THAN INPUTS
