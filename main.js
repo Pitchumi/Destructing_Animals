@@ -68,6 +68,9 @@ const Y_CENTER = CANVAS.height / 2
 const rectangle = new Sprite(20, 20, 50, 50)
 rectangle.draw();
 
+const platform = new Sprite(0, 150, 450, 20)
+platform.draw()
+
 //FUNCTIONS FOR OTHER THAN INPUTS
 
 /**
