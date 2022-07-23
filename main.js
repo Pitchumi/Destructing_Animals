@@ -10,7 +10,6 @@
 // z is (450,150)
 
 // CANVAS INIT
-
 const CANVAS = document.getElementById("game");
 const CTX = CANVAS.getContext("2d"); // Context, to use to draw in
 
@@ -131,65 +130,18 @@ class Plateformer_Player
 //OBJECTS INIT
 
 const platform = new Sprite(0, 180, CANVAS.width, 20, "black");
-var rectangle = new Sprite(20, platform.current_y_position - 40, TILE_SIZE, TILE_SIZE, "blue");
 var player = new Plateformer_Player(0,0,0);
 
-//FUNCTIONS FOR OTHER THAN INPUTS
-
-/**
- * Will test the boundaries of playground, we don't want that obj exits the playground
- * @param {Sprite} obj Name of the Sprite object  tested
- * @param {String} dir Direction where obj is stucking
- * @returns {Boolean} is_colliding, false if playground boudaries not yet crossed, true elif
- */
-function collision_detector_with_playground_borders(obj, dir){
-    is_colliding = false;
-    hit_top = obj.current_y_position < 5;
-    hit_bottom = obj.current_y_position > 145;
-    hit_left = obj.current_x_position < 5;
-    hit_right = obj.current_x_position > 445;
-
-    switch(dir){
-        case "up":        
-        if (hit_top){
-            is_colliding = true;
-            return true;
-        }
-        case "right":
-            if (hit_right){
-                is_colliding = true;
-                return is_colliding;
-            }
-    }      
-    return is_colliding; 
-}
-
-function land(){
-    jumping = false
-    rectangle.current_y_position += PLAYER_JUMP_HEIGHT;
-}
-
-function jump(){
-    if (!jumping) {
-        jumping = true;
-        rectangle.current_y_position -= PLAYER_JUMP_HEIGHT;
-        setTimeout(land, 250);
-      }
-}
-
-/**
- * Will draw all the objects in one function, don't forget to put new object here
- */
-function draw_everything(){
-    rectangle.draw();
-    platform.draw();
-}
 
 // INPUT MANAGER
-
-//document.addEventListener("mousedown", mouseListener, false); // Called when user interact with the mouse (usually on mouse click)
-//document.addEventListener("mousemove", mouseListener, false); // Called when the mouse is moving
-// document.addEventListener("keydown", move, false);
+/*
+document.addEventListener("mousedown", mouseListener, false); // Called when user interact with the mouse (usually on mouse click)
+document.addEventListener("mousemove", mouseListener, false); // Called when the mouse is moving
+function mouseListener(event) // What to do then 
+{
+    console.log(event);
+}
+*/
 document.addEventListener("keydown", eventManager, false);
 function eventManager(event)
 {
@@ -198,40 +150,31 @@ function eventManager(event)
     }
 }
 
-//INPUT FUNCTIONS
-
-function mouseListener(event) // What to do then 
-{
-    console.log(event);
-}
-
-function move(event){
-    if (event.key == "ArrowUp"){
-        jump();
-    }
-
-    if (event.key == "ArrowRight"){
-        if (collision_detector_with_playground_borders(rectangle, "right") == false){
-            rectangle.current_x_position += 10;
-        }
-        if (collision_detector_with_playground_borders(rectangle, "right")){                  
-            rectangle.current_x_position -= 8;
-        }
-    }
-    console.log(event.key);
-}
-
 // MAIN
 
-        function main() // Gameloop
-        {
+function process()
+{
+    player.process();
+}
+
+/**
+ * Will draw all the objects in one function, don't forget to put new object here
+ */
+function draw(){
+    platform.draw();
+    player.sprite.draw();
+}
+
+function main() // Gameloop
+{
             // PROCESS (fun todo) - Do the maths here
-            player.process();
+            process();
             
             // DRAW (fun todo) - Draw everything here
             CTX.clearRect(0,0, CANVAS.width, CANVAS.height); // This clean the canvas at each frame
-            draw_everything();
-            player.sprite.draw();
+            draw();
+
+            // Loop
             requestAnimationFrame(main); // This repeats main() as an infinite loop
         }
 
