@@ -29,13 +29,15 @@ const Y_CENTER = CANVAS.height / 2
  * @param {Number} y_pos - The yPosition of the sprite.
  * @param {Number} height - The height of the sprite.
  * @param {Number} width - The width of the sprite.
+ * @param {String} color - The color of the object
  */
  class Sprite {
-    constructor(x_pos, y_pos, height, width) {
+    constructor(x_pos, y_pos, height, width, color) {
         this.x_pos = x_pos
         this.y_pos = y_pos
         this.height = height
-        this.width = width     
+        this.width = width    
+        this.color = color 
     }
     
     get current_x_position(){
@@ -55,7 +57,7 @@ const Y_CENTER = CANVAS.height / 2
     }
 
     draw(){
-        CTX.fillStyle = 'red'
+        CTX.fillStyle = this.color
         CTX.fillRect(this.x_pos, this.y_pos, this.height, this.width)
         return CTX
     }
@@ -65,11 +67,13 @@ const Y_CENTER = CANVAS.height / 2
 
 //OBJECTS INIT
 
-const rectangle = new Sprite(20, 20, 50, 50)
+const platform = new Sprite(0, 180, CANVAS.width, 20, "black")
+platform.draw()
+
+const rectangle = new Sprite(20, platform.current_y_position - 40, 40, 40, "blue")
 rectangle.draw();
 
-const platform = new Sprite(0, 150, 450, 20)
-platform.draw()
+
 
 //FUNCTIONS FOR OTHER THAN INPUTS
 
@@ -131,12 +135,14 @@ function move(event){
             CTX.clearRect(0,0, CANVAS.width, CANVAS.height);
             rectangle.current_y_position -= 10
             rectangle.draw()
+            platform.draw()
 
         }
         if (collision_detector_with_playground_borders(rectangle, "up")){
             CTX.clearRect(0,0, CANVAS.width, CANVAS.height);
             rectangle.current_y_position += 5
-            rectangle.draw()
+            rectangle.draw()            
+            platform.draw()
         }
     }
 
@@ -144,13 +150,15 @@ function move(event){
         if (collision_detector_with_playground_borders(rectangle, "down") == false){
             CTX.clearRect(0,0, CANVAS.width, CANVAS.height)
             rectangle.current_y_position += 10
-            rectangle.draw()
+            rectangle.draw()            
+            platform.draw()
 
         }
         if (collision_detector_with_playground_borders(rectangle, "down")) {
             CTX.clearRect(0,0, CANVAS.width, CANVAS.height);
             rectangle.current_y_position -= 5
             rectangle.draw()
+            platform.draw()
         }
     }
 
@@ -159,12 +167,14 @@ function move(event){
         CTX.clearRect(0,0, CANVAS.width, CANVAS.height)
         rectangle.current_x_position -= 10
         rectangle.draw()
+        platform.draw()
         }
 
         if (collision_detector_with_playground_borders(rectangle, "left")){            
             CTX.clearRect(0,0, CANVAS.width, CANVAS.height);
             rectangle.current_x_position += 5
             rectangle.draw()
+            platform.draw()
         }
     }
     if (event.key == "ArrowRight"){
@@ -172,12 +182,14 @@ function move(event){
         CTX.clearRect(0,0, CANVAS.width, CANVAS.height)
         rectangle.current_x_position += 10
         rectangle.draw()
+        platform.draw()
 
         }
         if (collision_detector_with_playground_borders(rectangle, "right")){                  
             CTX.clearRect(0,0, CANVAS.width, CANVAS.height);
             rectangle.current_x_position -= 8
             rectangle.draw()
+            platform.draw()
         }
     }
     console.log(event.key)
