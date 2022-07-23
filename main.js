@@ -128,7 +128,9 @@ function move(event){
             CTX.clearRect(0,0, CANVAS.width, CANVAS.height);
             rectangle.current_y_position -= 10
             rectangle.draw()
-        } else {
+
+        }
+        if (collision_detector_with_playground_borders(rectangle, "up")){
             CTX.clearRect(0,0, CANVAS.width, CANVAS.height);
             rectangle.current_y_position += 5
             rectangle.draw()
@@ -136,26 +138,44 @@ function move(event){
     }
 
     if (event.key == "ArrowDown"){        
-        if (collision_detector_with_playground_borders(rectangle) == false){
+        if (collision_detector_with_playground_borders(rectangle, "down") == false){
             CTX.clearRect(0,0, CANVAS.width, CANVAS.height)
             rectangle.current_y_position += 10
             rectangle.draw()
-        }else {
+
+        }
+        if (collision_detector_with_playground_borders(rectangle, "down")) {
             CTX.clearRect(0,0, CANVAS.width, CANVAS.height);
             rectangle.current_y_position -= 5
             rectangle.draw()
         }
     }
 
-    if (event.key == "ArrowLeft"){
+    if (event.key == "ArrowLeft"){        
+        if (collision_detector_with_playground_borders(rectangle, "left") == false){
         CTX.clearRect(0,0, CANVAS.width, CANVAS.height)
         rectangle.current_x_position -= 10
         rectangle.draw()
+        }
+
+        if (collision_detector_with_playground_borders(rectangle, "left")){            
+            CTX.clearRect(0,0, CANVAS.width, CANVAS.height);
+            rectangle.current_x_position += 5
+            rectangle.draw()
+        }
     }
     if (event.key == "ArrowRight"){
+        if (collision_detector_with_playground_borders(rectangle, "right") == false){
         CTX.clearRect(0,0, CANVAS.width, CANVAS.height)
         rectangle.current_x_position += 10
         rectangle.draw()
+
+        }
+        if (collision_detector_with_playground_borders(rectangle, "right")){                  
+            CTX.clearRect(0,0, CANVAS.width, CANVAS.height);
+            rectangle.current_x_position -= 8
+            rectangle.draw()
+        }
     }
     console.log(event.key)
 }
