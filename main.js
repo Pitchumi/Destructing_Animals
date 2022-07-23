@@ -113,18 +113,26 @@ function collision_detector_with_playground_borders(obj, dir){
 
 function land(){
     jumping = false
+    CTX.clearRect(0,0, CANVAS.width, CANVAS.height);
     rectangle.current_y_position += PLAYER_JUMP_HEIGHT
+    draw_everything()
 }
 
 function jump(){
     if (!jumping) {
         jumping = true;
         rectangle.current_y_position -= PLAYER_JUMP_HEIGHT
-        setTimeout(land, 100);
-
+        setTimeout(land, 250);
       }
 }
 
+/**
+ * Will draw all the objects in one function, don't forget to put new object here
+ */
+function draw_everything(){
+    rectangle.draw()
+    platform.draw()
+}
 
 
 // INPUT MANAGER
@@ -144,24 +152,20 @@ function move(event){
     if (event.key == "ArrowUp"){
         jump()
         CTX.clearRect(0,0, CANVAS.width, CANVAS.height);
-        rectangle.current_y_position -= 10
-        rectangle.draw()
-        platform.draw()
+        draw_everything()
     }
 
     if (event.key == "ArrowRight"){
         if (collision_detector_with_playground_borders(rectangle, "right") == false){
         CTX.clearRect(0,0, CANVAS.width, CANVAS.height)
         rectangle.current_x_position += 10
-        rectangle.draw()
-        platform.draw()
+        draw_everything()
 
         }
         if (collision_detector_with_playground_borders(rectangle, "right")){                  
             CTX.clearRect(0,0, CANVAS.width, CANVAS.height);
             rectangle.current_x_position -= 8
-            rectangle.draw()
-            platform.draw()
+            draw_everything()
         }
     }
     console.log(event.key)
