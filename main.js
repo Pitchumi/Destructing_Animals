@@ -9,21 +9,21 @@
 // y is (O,150)
 // z is (450,150)
 
-
-
 // CANVAS INIT
 
 const CANVAS = document.getElementById("game");
 const CTX = CANVAS.getContext("2d"); // Context, to use to draw in
 
 //CONST
+const TILE_SIZE = 64;
+const WINDOWS_WIDTH = CANVAS.width;
+const WINDOWS_HEIGHT = CANVAS.height;
 const X_CENTER = CANVAS.width / 2;
 const Y_CENTER = CANVAS.height / 2;
 const PLAYER_JUMP_HEIGHT = 20;
 
 //VAR
 var jumping = false;
-
 
 //CLASSES
 
@@ -78,8 +78,6 @@ platform.draw();
 var rectangle = new Sprite(20, platform.current_y_position - 40, 40, 40, "blue");
 rectangle.draw();
 
-
-
 //FUNCTIONS FOR OTHER THAN INPUTS
 
 /**
@@ -99,7 +97,7 @@ function collision_detector_with_playground_borders(obj, dir){
         case "up":        
         if (hit_top){
             is_colliding = true;
-            return is_colliding;
+            return true;
         }
         case "right":
             if (hit_right){
@@ -133,7 +131,6 @@ function draw_everything(){
     rectangle.draw();
     platform.draw();
 }
-
 
 // INPUT MANAGER
 
