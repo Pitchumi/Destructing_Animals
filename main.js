@@ -19,6 +19,11 @@ const CTX = CANVAS.getContext("2d"); // Context, to use to draw in
 //CONST
 const X_CENTER = CANVAS.width / 2
 const Y_CENTER = CANVAS.height / 2
+ PLAYER_JUMP_HEIGHT = 20
+
+//VAR
+var jumping = false
+
 
 //CLASSES
 
@@ -70,7 +75,7 @@ const Y_CENTER = CANVAS.height / 2
 const platform = new Sprite(0, 180, CANVAS.width, 20, "black")
 platform.draw()
 
-const rectangle = new Sprite(20, platform.current_y_position - 40, 40, 40, "blue")
+var rectangle = new Sprite(20, platform.current_y_position - 40, 40, 40, "blue")
 rectangle.draw();
 
 
@@ -106,6 +111,22 @@ function collision_detector_with_playground_borders(obj, dir){
 }
 
 
+function land(){
+    jumping = false
+    rectangle.current_y_position += PLAYER_JUMP_HEIGHT
+}
+
+function jump(){
+    if (!jumping) {
+        jumping = true;
+        rectangle.current_y_position -= PLAYER_JUMP_HEIGHT
+        setTimeout(land, 100);
+
+      }
+}
+
+
+
 // INPUT MANAGER
 
 //document.addEventListener("mousedown", mouseListener, false); // Called when user interact with the mouse (usually on mouse click)
@@ -121,20 +142,13 @@ function mouseListener(event) // What to do then
 
 function move(event){
     if (event.key == "ArrowUp"){
-        if (collision_detector_with_playground_borders(rectangle, "up") == false){
-            CTX.clearRect(0,0, CANVAS.width, CANVAS.height);
-            rectangle.current_y_position -= 10
-            rectangle.draw()
-            platform.draw()
-
-        }
-        if (collision_detector_with_playground_borders(rectangle, "up")){
-            CTX.clearRect(0,0, CANVAS.width, CANVAS.height);
-            rectangle.current_y_position += 5
-            rectangle.draw()            
-            platform.draw()
-        }
+        jump()
+        CTX.clearRect(0,0, CANVAS.width, CANVAS.height);
+        rectangle.current_y_position -= 10
+        rectangle.draw()
+        platform.draw()
     }
+
     if (event.key == "ArrowRight"){
         if (collision_detector_with_playground_borders(rectangle, "right") == false){
         CTX.clearRect(0,0, CANVAS.width, CANVAS.height)
