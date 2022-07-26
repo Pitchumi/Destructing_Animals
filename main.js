@@ -212,8 +212,50 @@ function draw(){
     }
 }
 
+//////////////////////////////////////////////////////////////////////////////////////
+// FIGHTER
+
+/**
+ * Player's character in Fighter mode
+ * @constructor
+ * @param {Number} countRed - The ammount of red collected.
+ * @param {Number} countBlue - The ammount of blue collected.
+ * @param {Number} countGreen - The ammount of green collected.
+ */
+class Fighter_Player
+{
+    constructor(countRed, countBlue, countGreen)
+    {
+        this.countRed = countRed;
+        this.countBlue = countBlue;
+        this.countGreen = countGreen;
+    }
+}
+
+function fighterProcess()
+{
+
+}
+
+function fighterDraw()
+{
+    CTX.clearRect(0,0, CANVAS.width, CANVAS.height);
+    CTX.strokeRect(0, 0, 50, 50);
+
+}
+
+function fighterGameloop()
+{
+    fighterProcess();
+    fighterDraw();
+    requestAnimationFrame(fighterGameloop);
+}
+
+
 function main() // Gameloop
 {
+    fighterGameloop();
+    return;
             // PROCESS (fun todo) - Do the maths here
             process();
 
